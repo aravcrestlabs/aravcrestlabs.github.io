@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide | GemCrest Documentation</title>
+    <meta name="description"
+        content="Learn how to use GemCrest for invoicing, inventory management, and customer tracking.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Crimson+Pro:wght@200;300;400;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-content">
+            <a href="../index.html" class="navbar-logo">AravCrestLabs</a>
+            <div class="navbar-nav">
+                <a href="../index.html" class="navbar-link">Home</a>
+                <a href="../about.html" class="navbar-link">About</a>
+                <a href="../gemcrest.html" class="navbar-link">GemCrest</a>
+                <a href="index.html" class="navbar-link active">Docs</a>
+                <a href="../contact.html" class="navbar-link">Contact</a>
+                <a href="../gemcrest.html#pricing" class="navbar-cta">Get Started</a>
+            </div>
+            <button class="navbar-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="docs-nav-section">
+                <div class="docs-nav-title">Getting Started</div>
+                <div class="docs-nav-links">
+                    <a href="index.html">Overview</a>
+                    <a href="getting-started.html">Installation & Setup</a>
+                </div>
+            </div>
+            <div class="docs-nav-section">
+                <div class="docs-nav-title">User Guide</div>
+                <div class="docs-nav-links">
+                    <a href="user-guide.html" class="active">Using GemCrest</a>
+                    <a href="settings.html">Settings & Config</a>
+                </div>
+            </div>
+            <div class="docs-nav-section">
+                <div class="docs-nav-title">Support</div>
+                <div class="docs-nav-links">
+                    <a href="faq.html">FAQ</a>
+                    <a href="../contact.html">Contact Support</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <h1>User <span class="accent">Guide</span></h1>
+            <p>Learn how to use GemCrest's features to manage your jewelry business efficiently.</p>
+
+            <h2>Dashboard Overview</h2>
+            <p>The dashboard provides an at-a-glance view of your business:</p>
+            <ul>
+                <li><strong>Today's Sales:</strong> Total revenue for the current day</li>
+                <li><strong>Invoice Count:</strong> Number of invoices created today</li>
+                <li><strong>Recent Invoices:</strong> Quick access to recent transactions</li>
+                <li><strong>Metal Rates:</strong> Current gold and silver prices</li>
+            </ul>
+
+            <h2>Creating an Invoice</h2>
+            <p>To create a new invoice:</p>
+            <ol>
+                <li>Click <strong>"New Invoice"</strong> in the sidebar</li>
+                <li>Select or add a customer</li>
+                <li>Add items to the invoice (see below)</li>
+                <li>Review totals and apply discounts if needed</li>
+                <li>Save and print the invoice</li>
+            </ol>
+
+            <h3>Adding Billing Items</h3>
+            <p>For each item sold:</p>
+            <ul>
+                <li>Enter item description (e.g., "Gold Chain", "Diamond Ring")</li>
+                <li>Specify gross weight and net weight</li>
+                <li>Select metal type and purity (22K, 18K, etc.)</li>
+                <li>Enter making charges (percentage or flat rate)</li>
+                <li>The system calculates the price automatically</li>
+            </ul>
+
+            <h3>Old Gold Exchange</h3>
+            <p>To accept old jewelry as payment:</p>
+            <ol>
+                <li>In the Exchange section, click "Add Exchange Item"</li>
+                <li>Enter the weight and purity of the old jewelry</li>
+                <li>The exchange value is deducted from the total</li>
+            </ol>
+
+            <h2>Inventory Management</h2>
+            <p>Track your stock in real-time:</p>
+
+            <h3>Adding Products</h3>
+            <ol>
+                <li>Go to <strong>Inventory → Add Product</strong></li>
+                <li>Enter product details: name, category, weight, purity</li>
+                <li>Add HUID if applicable</li>
+                <li>Set initial stock quantity</li>
+                <li>Save the product</li>
+            </ol>
+
+            <h3>Stock Updates</h3>
+            <p>Stock is automatically updated when you create invoices. For manual adjustments:</p>
+            <ol>
+                <li>Go to <strong>Inventory</strong></li>
+                <li>Find the product and click "Edit"</li>
+                <li>Adjust the stock quantity</li>
+                <li>Save changes</li>
+            </ol>
+
+            <h2>Customer Management</h2>
+            <p>Maintain detailed customer records:</p>
+
+            <h3>Adding Customers</h3>
+            <ol>
+                <li>Go to <strong>Customers → Add New</strong></li>
+                <li>Enter name, phone, and email</li>
+                <li>Enter pincode — city and state auto-fill</li>
+                <li>Add any notes or preferences</li>
+                <li>Save the customer</li>
+            </ol>
+
+            <h3>Customer History</h3>
+            <p>View a customer's complete purchase history by clicking on their profile. This helps with personalized
+                service and follow-ups.</p>
+
+            <h2>Metal Rates</h2>
+            <p>Keep your pricing accurate by updating metal rates daily:</p>
+            <ol>
+                <li>Go to <strong>Metal Rates</strong></li>
+                <li>Enter today's 24K gold rate per gram</li>
+                <li>Enter fine silver rate per gram</li>
+                <li>Other purity rates are calculated automatically</li>
+            </ol>
+
+            <div class="callout callout-tip">
+                <strong>Tip:</strong> Update metal rates first thing each morning before creating invoices.
+            </div>
+
+            <h2>Printing Invoices</h2>
+            <p>GemCrest supports multiple print formats:</p>
+            <ul>
+                <li><strong>Standard A4:</strong> Full-page professional invoices</li>
+                <li><strong>Thermal:</strong> For POS thermal printers</li>
+                <li><strong>Custom Templates:</strong> Configure in Settings</li>
+            </ul>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>AravCrestLabs</h3>
+                <p>Crafting elegant software solutions for jewelry businesses.</p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-heading">Product</h4>
+                <div class="footer-links">
+                    <a href="../gemcrest.html">GemCrest</a>
+                    <a href="../gemcrest.html#pricing">Pricing</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-heading">Company</h4>
+                <div class="footer-links">
+                    <a href="../about.html">About Us</a>
+                    <a href="../contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-heading">Legal</h4>
+                <div class="footer-links">
+                    <a href="../legal/privacy-policy.html">Privacy</a>
+                    <a href="../legal/terms.html">Terms</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 AravCrestLabs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
