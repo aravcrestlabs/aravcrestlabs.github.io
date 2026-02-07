@@ -8,6 +8,13 @@ require('dotenv').config();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Globals for navigation
+app.use((req, res, next) => {
+    res.locals.path = '/';
+    res.locals.ext = ''; // no extension for local express routes
+    next();
+});
+
 // Dynamic JS Serving (Inject Envs)
 const fs = require('fs');
 
@@ -45,7 +52,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/gemcrest', (req, res) => {
-    res.render('gemcrest', { title: 'GemCrest', scripts: ['/js/checkout.js'] });
+    res.render('gemcrest', { title: 'GemCrest', scripts: ['js/checkout.js'] });
 });
 
 app.get('/about', (req, res) => {

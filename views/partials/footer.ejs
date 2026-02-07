@@ -8,27 +8,27 @@
         <div class="footer-section">
             <h4 class="footer-heading">Product</h4>
             <div class="footer-links">
-                <a href="/gemcrest">GemCrest</a>
-                <a href="/gemcrest#features">Features</a>
-                <a href="/gemcrest#pricing">Pricing</a>
-                <a href="/docs">Documentation</a>
+                <a href="<%= path %>gemcrest<%= ext %>">GemCrest</a>
+                <a href="<%= path %>gemcrest<%= ext %>#features">Features</a>
+                <a href="<%= path %>gemcrest<%= ext %>#pricing">Pricing</a>
+                <a href="<%= path %>docs/index<%= ext %>">Documentation</a>
             </div>
         </div>
         <div class="footer-section">
             <h4 class="footer-heading">Company</h4>
             <div class="footer-links">
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact</a>
-                <a href="/docs/faq">FAQ</a>
+                <a href="<%= path %>about<%= ext %>">About Us</a>
+                <a href="<%= path %>contact<%= ext %>">Contact</a>
+                <a href="<%= path %>docs/faq<%= ext %>">FAQ</a>
             </div>
         </div>
         <div class="footer-section">
             <h4 class="footer-heading">Legal</h4>
             <div class="footer-links">
-                <a href="/legal/privacy-policy">Privacy Policy</a>
-                <a href="/legal/terms">Terms of Service</a>
-                <a href="/legal/refund-policy">Refund Policy</a>
-                <a href="/legal/license">License (EULA)</a>
+                <a href="<%= path %>legal/privacy-policy<%= ext %>">Privacy Policy</a>
+                <a href="<%= path %>legal/terms<%= ext %>">Terms of Service</a>
+                <a href="<%= path %>legal/refund-policy<%= ext %>">Refund Policy</a>
+                <a href="<%= path %>legal/license<%= ext %>">License (EULA)</a>
             </div>
         </div>
     </div>
@@ -38,11 +38,11 @@
     </div>
 </footer>
 
-<script src="/js/main.js"></script>
-<script src="/js/brutalist.js"></script>
+<script src="<%= path %>js/main.js"></script>
+<script src="<%= path %>js/brutalist.js"></script>
 <% if (locals.scripts) { %>
     <% scripts.forEach(function(script) { %>
-        <script src="<%= script %>"></script>
+        <script src="<%= path %><%= script %>"></script>
         <% }); %>
             <% } %>
                 </body>

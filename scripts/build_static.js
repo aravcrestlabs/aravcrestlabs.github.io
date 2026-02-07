@@ -38,7 +38,7 @@ copyDir(PUBLIC_DIR, DIST_DIR);
 // 2. Define Pages to Render
 const pages = [
     { src: 'index', dest: 'index.html', data: { title: 'Home' } },
-    { src: 'gemcrest', dest: 'gemcrest.html', data: { title: 'GemCrest', scripts: ['/js/checkout.js'] } },
+    { src: 'gemcrest', dest: 'gemcrest.html', data: { title: 'GemCrest', scripts: ['js/checkout.js'] } },
     { src: 'about', dest: 'about.html', data: { title: 'About Us' } },
     { src: 'contact', dest: 'contact.html', data: { title: 'Contact' } },
     { src: 'admin/login', dest: 'admin/login.html', data: { title: 'Admin Login' } },
@@ -75,13 +75,28 @@ pages.forEach(page => {
     const templatePath = path.join(VIEWS_DIR, page.src + '.ejs');
     const outputPath = path.join(DIST_DIR, page.dest);
 
+
     // Ensure output dir exists
     const outputDir = path.dirname(outputPath);
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
     }
 
-    ejs.renderFile(templatePath, page.data, (err, str) => {
+    // Calculate relative path to root (e.g., "admin/" -> "../")
+    let relativePath = path.relative(outputDir, DIST_DIR);
+    if (relativePath === '') relativePath = '.';
+    relativePath += '/';
+    // Windows fix: ensure forward slashes
+    relativePath = relativePath.replace(/\\/g, '/');
+
+    // Merge data with path globals
+    const viewData = {
+        ...page.data,
+        path: relativePath,
+        ext: '.html'
+    };
+
+    ejs.renderFile(templatePath, viewData, (err, str) => {
         if (err) {
             console.error(`Error rendering ${page.src}:`, err);
             process.exit(1);
