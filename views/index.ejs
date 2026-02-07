@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AravCrestLabs - Crafting Excellence in Jewelry Technology</title>
-    <meta name="description"
-        content="Premium jewelry billing software by AravCrestLabs. GemCrest - Modern, offline-first billing solution for jewelers in India.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animations.css">
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-logo">AravCrestLabs</a>
-            <div class="navbar-nav">
-                <a href="index.html" class="navbar-link active">Home</a>
-                <a href="about.html" class="navbar-link">About</a>
-                <a href="gemcrest.html" class="navbar-link">GemCrest</a>
-                <a href="docs/index.html" class="navbar-link">Docs</a>
-                <a href="contact.html" class="navbar-link">Contact</a>
-                <a href="gemcrest.html#pricing" class="navbar-cta">Get Started</a>
-            </div>
-            <button class="navbar-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+<%- include('partials/header') %>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -53,8 +13,8 @@
                     for accuracy, speed, and peace of mind.
                 </p>
                 <div class="hero-buttons">
-                    <a href="gemcrest.html#pricing" class="btn btn-primary">Start for ₹5,000</a>
-                    <a href="gemcrest.html" class="btn btn-secondary">Explore Features</a>
+                    <a href="/gemcrest#pricing" class="btn btn-primary">Start for ₹5,000</a>
+                    <a href="/gemcrest" class="btn btn-secondary">Explore Features</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -108,7 +68,7 @@
                 </div>
             </div>
             <div style="text-align:center;margin-top:var(--space-10);">
-                <a href="gemcrest.html#features" class="btn btn-secondary">View All Features</a>
+                <a href="/gemcrest#features" class="btn btn-secondary">View All Features</a>
             </div>
         </div>
     </section>
@@ -137,7 +97,7 @@
                         solve real problems faced by jewelry businesses. No bloated features, no complicated interfaces
                         — just elegant, powerful tools that work.
                     </p>
-                    <a href="about.html" class="btn btn-secondary" style="margin-top:1.5rem;">Learn Our Story</a>
+                    <a href="/about" class="btn btn-secondary" style="margin-top:1.5rem;">Learn Our Story</a>
                 </div>
             </div>
         </div>
@@ -155,52 +115,9 @@
                     Join jewelers who trust GemCrest for their billing and inventory needs.
                     One-time payment, lifetime access.
                 </p>
-                <a href="gemcrest.html#pricing" class="btn btn-primary">Get GemCrest Now</a>
+                <a href="/gemcrest#pricing" class="btn btn-primary">Get GemCrest Now</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AravCrestLabs</h3>
-                <p>Crafting elegant software solutions for jewelry businesses. Based in Jaipur, built for India.</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Product</h4>
-                <div class="footer-links">
-                    <a href="gemcrest.html">GemCrest</a>
-                    <a href="gemcrest.html#features">Features</a>
-                    <a href="gemcrest.html#pricing">Pricing</a>
-                    <a href="docs/index.html">Documentation</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Company</h4>
-                <div class="footer-links">
-                    <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="docs/faq.html">FAQ</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Legal</h4>
-                <div class="footer-links">
-                    <a href="legal/privacy-policy.html">Privacy Policy</a>
-                    <a href="legal/terms.html">Terms of Service</a>
-                    <a href="legal/refund-policy.html">Refund Policy</a>
-                    <a href="legal/license.html">License (EULA)</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AravCrestLabs. All rights reserved.</p>
-            <p>Made with care in Jaipur, India</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-</body>
-
-</html>
+    <%- include('partials/footer') %>

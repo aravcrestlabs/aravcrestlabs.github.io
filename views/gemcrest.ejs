@@ -1,44 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemCrest - Professional Jewelry Billing Software | AravCrestLabs</title>
-    <meta name="description"
-        content="GemCrest is the complete billing and inventory solution for jewelry businesses in India. GST-compliant, offline-first, and beautifully designed.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animations.css">
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-logo">AravCrestLabs</a>
-            <div class="navbar-nav">
-                <a href="index.html" class="navbar-link">Home</a>
-                <a href="about.html" class="navbar-link">About</a>
-                <a href="gemcrest.html" class="navbar-link active">GemCrest</a>
-                <a href="docs/index.html" class="navbar-link">Docs</a>
-                <a href="contact.html" class="navbar-link">Contact</a>
-                <a href="#pricing" class="navbar-cta">Get Started</a>
-            </div>
-            <button class="navbar-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+<%- include('partials/header') %>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <!-- Hero Section -->
     <section class="hero" style="min-height:70vh;">
@@ -50,8 +11,8 @@
                     Professional, powerful, and refreshingly simple.
                 </p>
                 <div class="hero-buttons" style="justify-content:center;">
-                    <a href="#pricing" class="btn btn-primary">Purchase for ₹5,000</a>
-                    <a href="docs/index.html" class="btn btn-secondary">Read Documentation</a>
+                    <a href="#pricing" class="btn btn-primary" id="hero-price-btn">Purchase for ₹5,000</a>
+                    <a href="/docs/index.html" class="btn btn-secondary">Read Documentation</a>
                 </div>
             </div>
         </div>
@@ -179,7 +140,7 @@
                         <div class="pricing-price-box">
                             <div class="pricing-original">₹15,000</div>
                             <div class="pricing-amount">
-                                <span class="currency">₹</span>5,000
+                                <span class="currency">₹</span><span id="price-value">5,000</span>
                             </div>
                         </div>
                         <p class="pricing-note">One-time payment • Forever yours</p>
@@ -198,14 +159,14 @@
                     </div>
                 </div>
 
-                <form class="pricing-form" id="purchaseForm">
+                <form class="pricing-form" id="purchase-form">
                     <div class="form-group">
-                        <label for="customerName">Full Name *</label>
-                        <input type="text" id="customerName" name="customerName" required placeholder="Full Name">
+                        <label for="customer-name">Full Name *</label>
+                        <input type="text" id="customer-name" name="customerName" required placeholder="Full Name">
                     </div>
                     <div class="form-group">
-                        <label for="customerEmail">Email Address *</label>
-                        <input type="email" id="customerEmail" name="customerEmail" required
+                        <label for="customer-email">Email Address *</label>
+                        <input type="email" id="customer-email" name="customerEmail" required
                             placeholder="Email Address">
                     </div>
                     <div class="form-group">
@@ -216,20 +177,22 @@
                 </form>
 
                 <div class="pricing-cta">
-                    <button type="button" class="btn btn-primary w-full" id="purchaseBtn" disabled>Purchase GemCrest
+                    <button type="button" class="btn btn-primary w-full" id="pay-btn">Purchase GemCrest
                         Now</button>
                     <p style="margin-top:0.5rem;font-size:0.75rem;opacity:0.7;text-align:center;">
                         Secure payment processing by Razorpay
                     </p>
+                    <div id="error-message" class="hidden" style="color:red;text-align:center;margin-top:0.5rem;"></div>
                 </div>
 
                 <!-- Success Message (hidden by default) -->
-                <div id="checkout-success" class="hidden" style="text-align:center;padding:2rem;grid-column:1/-1;">
+                <div id="success-view" class="hidden" style="text-align:center;padding:2rem;grid-column:1/-1;">
                     <div style="font-size:3rem;margin-bottom:1rem;">✓</div>
                     <h3 style="color:var(--accent-color);margin-bottom:1rem;">Payment Successful!</h3>
-                    <p style="margin-bottom:1.5rem;">Your license code has been sent to your email.</p>
+                    <p style="margin-bottom:0.5rem; font-weight: bold;">Thank you for your purchase.</p>
+                    <p style="margin-bottom:1.5rem;">Your license code is below and has been sent to your email.</p>
                     <div style="background:var(--secondary-bg);padding:1.5rem;border:var(--border-thick);font-family:monospace;font-size:1.2rem;"
-                        id="licenseCode">
+                        id="license-code">
                         XXXX-XXXX-XXXX-XXXX
                     </div>
                 </div>
@@ -281,48 +244,4 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AravCrestLabs</h3>
-                <p>Crafting elegant software solutions for jewelry businesses. Based in Jaipur, built for India.</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Product</h4>
-                <div class="footer-links">
-                    <a href="gemcrest.html">GemCrest</a>
-                    <a href="#features">Features</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="docs/index.html">Documentation</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Company</h4>
-                <div class="footer-links">
-                    <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="docs/faq.html">FAQ</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Legal</h4>
-                <div class="footer-links">
-                    <a href="legal/privacy-policy.html">Privacy Policy</a>
-                    <a href="legal/terms.html">Terms of Service</a>
-                    <a href="legal/refund-policy.html">Refund Policy</a>
-                    <a href="legal/license.html">License (EULA)</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AravCrestLabs. All rights reserved.</p>
-            <p>Made with care in Jaipur, India</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <script src="js/checkout.js"></script>
-</body>
-
-</html>
+    <%- include('partials/footer') %>

@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | AravCrestLabs</title>
-    <meta name="description"
-        content="Learn about AravCrestLabs, our philosophy, and the story behind GemCrest jewelry billing software.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="css/main.css">
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-logo">AravCrestLabs</a>
-            <div class="navbar-nav">
-                <a href="index.html" class="navbar-link">Home</a>
-                <a href="about.html" class="navbar-link active">About</a>
-                <a href="gemcrest.html" class="navbar-link">GemCrest</a>
-                <a href="docs/index.html" class="navbar-link">Docs</a>
-                <a href="contact.html" class="navbar-link">Contact</a>
-                <a href="gemcrest.html#pricing" class="navbar-cta">Get Started</a>
-            </div>
-            <button class="navbar-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+<%- include('partials/header') %>
 
     <!-- Content -->
     <section class="section section-warm" style="padding-top:140px;">
@@ -114,58 +75,15 @@
             <h2>Get in Touch</h2>
             <p>
                 We'd love to hear from you. Whether you have questions, suggestions, or just want to chat about jewelry
-                technology, reach out at <strong><a href="mailto:support@aravcrestlabs.com"
-                        style="color:var(--rose-gold);">support@aravcrestlabs.com</a></strong>
+                technology, reach out at <strong><a href="mailto:aravcrestlabs@proton.me"
+                        style="color:var(--rose-gold);">aravcrestlabs@proton.me</a></strong>
             </p>
 
             <div style="margin-top:3rem;text-align:center;">
-                <a href="gemcrest.html" class="btn btn-primary">Explore GemCrest</a>
-                <a href="contact.html" class="btn btn-secondary" style="margin-left:1rem;">Contact Us</a>
+                <a href="/gemcrest" class="btn btn-primary">Explore GemCrest</a>
+                <a href="/contact" class="btn btn-secondary" style="margin-left:1rem;">Contact Us</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AravCrestLabs</h3>
-                <p>Crafting elegant software solutions for jewelry businesses. Based in Jaipur, built for India.</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Product</h4>
-                <div class="footer-links">
-                    <a href="gemcrest.html">GemCrest</a>
-                    <a href="gemcrest.html#features">Features</a>
-                    <a href="gemcrest.html#pricing">Pricing</a>
-                    <a href="docs/index.html">Documentation</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Company</h4>
-                <div class="footer-links">
-                    <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="docs/faq.html">FAQ</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Legal</h4>
-                <div class="footer-links">
-                    <a href="legal/privacy-policy.html">Privacy Policy</a>
-                    <a href="legal/terms.html">Terms of Service</a>
-                    <a href="legal/refund-policy.html">Refund Policy</a>
-                    <a href="legal/license.html">License (EULA)</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AravCrestLabs. All rights reserved.</p>
-            <p>Made with care in Jaipur, India</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-</body>
-
-</html>
+    <%- include('partials/footer') %>

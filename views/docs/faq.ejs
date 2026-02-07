@@ -1,66 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ | GemCrest Documentation</title>
-    <meta name="description"
-        content="Frequently asked questions about GemCrest jewelry billing software - licensing, technical support, and features.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Crimson+Pro:wght@200;300;400;600&family=DM+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="../css/main.css">
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="../index.html" class="navbar-logo">AravCrestLabs</a>
-            <div class="navbar-nav">
-                <a href="../index.html" class="navbar-link">Home</a>
-                <a href="../about.html" class="navbar-link">About</a>
-                <a href="../gemcrest.html" class="navbar-link">GemCrest</a>
-                <a href="index.html" class="navbar-link active">Docs</a>
-                <a href="../contact.html" class="navbar-link">Contact</a>
-                <a href="../gemcrest.html#pricing" class="navbar-cta">Get Started</a>
-            </div>
-            <button class="navbar-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
+<%- include('../partials/header', { title: 'FAQ | GemCrest Docs' }) %>
     <!-- Documentation Layout -->
     <div class="docs-layout">
         <aside class="docs-sidebar">
             <div class="docs-nav-section">
                 <div class="docs-nav-title">Getting Started</div>
                 <div class="docs-nav-links">
-                    <a href="index.html">Overview</a>
-                    <a href="getting-started.html">Installation & Setup</a>
+                    <a href="/docs/">Overview</a>
+                    <a href="/docs/getting-started">Installation & Setup</a>
                 </div>
             </div>
             <div class="docs-nav-section">
                 <div class="docs-nav-title">User Guide</div>
                 <div class="docs-nav-links">
-                    <a href="user-guide.html">Using GemCrest</a>
-                    <a href="settings.html">Settings & Config</a>
+                    <a href="/docs/user-guide">Using GemCrest</a>
+                    <a href="/docs/settings">Settings & Config</a>
                 </div>
             </div>
             <div class="docs-nav-section">
                 <div class="docs-nav-title">Support</div>
                 <div class="docs-nav-links">
-                    <a href="faq.html" class="active">FAQ</a>
-                    <a href="../contact.html">Contact Support</a>
+                    <a href="/docs/faq" class="active">FAQ</a>
+                    <a href="/contact">Contact Support</a>
                 </div>
             </div>
         </aside>
@@ -86,8 +46,8 @@
                 us for multi-device licensing options.</p>
 
             <h3>What happens if I change my computer?</h3>
-            <p>Contact us at <a href="mailto:support@aravcrestlabs.com"
-                    style="color:var(--rose-gold);">support@aravcrestlabs.com</a> with your license code and we'll help
+            <p>Contact us at <a href="mailto:aravcrestlabs@proton.me"
+                    style="color:var(--rose-gold);">aravcrestlabs@proton.me</a> with your license code and we'll help
                 you transfer the license to your new device.</p>
 
             <h3>I lost my license code. What should I do?</h3>
@@ -153,53 +113,17 @@
 
             <h3>Do you offer refunds?</h3>
             <p>Due to the nature of digital products, all sales are final. Please review our documentation and features
-                carefully before purchasing. See our full <a href="../legal/refund-policy.html"
+                carefully before purchasing. See our full <a href="/docs/../legal/refund-policy"
                     style="color:var(--rose-gold);">Refund Policy</a>.</p>
 
             <h3>Is GST included in the price?</h3>
             <p>Yes, the ₹5,000 price is inclusive of all taxes.</p>
 
             <h2>Still Have Questions?</h2>
-            <p>If you can't find the answer you're looking for, please <a href="../contact.html"
+            <p>If you can't find the answer you're looking for, please <a href="/contact"
                     style="color:var(--rose-gold);">contact us</a>. We typically respond within 24 hours.</p>
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AravCrestLabs</h3>
-                <p>Crafting elegant software solutions for jewelry businesses.</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Product</h4>
-                <div class="footer-links">
-                    <a href="../gemcrest.html">GemCrest</a>
-                    <a href="../gemcrest.html#pricing">Pricing</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Company</h4>
-                <div class="footer-links">
-                    <a href="../about.html">About Us</a>
-                    <a href="../contact.html">Contact</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Legal</h4>
-                <div class="footer-links">
-                    <a href="../legal/privacy-policy.html">Privacy</a>
-                    <a href="../legal/terms.html">Terms</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AravCrestLabs. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-</body>
-
-</html>
+    <%- include('../partials/footer') %>

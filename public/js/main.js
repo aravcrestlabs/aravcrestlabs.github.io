@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initScrollReveal();
     initMobileMenu();
     initSmoothScroll();
+    // initPurchaseForm(); // Handled by checkout.js
 });
 
 // ----------------------------------------
@@ -162,3 +163,13 @@ function setActiveNavLink() {
 
 // Run on page load
 setActiveNavLink();
+
+// ----------------------------------------
+// Purchase Form Validation
+// ----------------------------------------
+// Moved to checkout.js - Keeping this clear to prevent conflicts
+/*
+function initPurchaseForm() {
+    // Legacy Code Removed
+}
+*/

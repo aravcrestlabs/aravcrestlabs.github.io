@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>License Agreement (EULA) | AravCrestLabs</title>
-    <meta name="description" content="End User License Agreement for GemCrest jewelry billing software.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Crimson+Pro:wght@200;300;400;600&family=DM+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="../css/main.css">
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="../index.html" class="navbar-logo">AravCrestLabs</a>
-            <div class="navbar-nav">
-                <a href="../index.html" class="navbar-link">Home</a>
-                <a href="../about.html" class="navbar-link">About</a>
-                <a href="../gemcrest.html" class="navbar-link">GemCrest</a>
-                <a href="../docs/index.html" class="navbar-link">Docs</a>
-                <a href="../contact.html" class="navbar-link">Contact</a>
-                <a href="../gemcrest.html#pricing" class="navbar-cta">Get Started</a>
-            </div>
-            <button class="navbar-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
+<%- include('../partials/header', { title: 'License Agreement (EULA)' }) %>
     <!-- Legal Content -->
     <section class="legal-content">
         <h1>License <span class="accent">Agreement</span></h1>
@@ -143,48 +104,10 @@
         <h2>13. Contact</h2>
         <p>
             For questions about this license agreement:<br>
-            <strong>Email:</strong> <a href="mailto:legal@aravcrestlabs.com"
-                style="color:var(--rose-gold);">legal@aravcrestlabs.com</a>
+            <strong>Email:</strong> <a href="mailto:aravcrestlabs@proton.me"
+                style="color:var(--rose-gold);">aravcrestlabs@proton.me</a>
         </p>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AravCrestLabs</h3>
-                <p>Crafting elegant software solutions for jewelry businesses.</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Product</h4>
-                <div class="footer-links">
-                    <a href="../gemcrest.html">GemCrest</a>
-                    <a href="../gemcrest.html#pricing">Pricing</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Company</h4>
-                <div class="footer-links">
-                    <a href="../about.html">About Us</a>
-                    <a href="../contact.html">Contact</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Legal</h4>
-                <div class="footer-links">
-                    <a href="privacy-policy.html">Privacy</a>
-                    <a href="terms.html">Terms</a>
-                    <a href="refund-policy.html">Refunds</a>
-                    <a href="license.html">License</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AravCrestLabs. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-</body>
-
-</html>
+    <%- include('../partials/footer') %>

@@ -1,65 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getting Started | GemCrest Documentation</title>
-    <meta name="description" content="Learn how to install, set up, and activate GemCrest jewelry billing software.">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Crimson+Pro:wght@200;300;400;600&family=DM+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="../css/main.css">
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="../index.html" class="navbar-logo">AravCrestLabs</a>
-            <div class="navbar-nav">
-                <a href="../index.html" class="navbar-link">Home</a>
-                <a href="../about.html" class="navbar-link">About</a>
-                <a href="../gemcrest.html" class="navbar-link">GemCrest</a>
-                <a href="index.html" class="navbar-link active">Docs</a>
-                <a href="../contact.html" class="navbar-link">Contact</a>
-                <a href="../gemcrest.html#pricing" class="navbar-cta">Get Started</a>
-            </div>
-            <button class="navbar-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Documentation Layout -->
+<%- include('../partials/header', { title: 'Getting Started | GemCrest Docs' }) %>
+<!-- Documentation Layout -->
     <div class="docs-layout">
         <aside class="docs-sidebar">
             <div class="docs-nav-section">
                 <div class="docs-nav-title">Getting Started</div>
                 <div class="docs-nav-links">
-                    <a href="index.html">Overview</a>
-                    <a href="getting-started.html" class="active">Installation & Setup</a>
+                    <a href="/docs/">Overview</a>
+                    <a href="/docs/getting-started" class="active">Installation & Setup</a>
                 </div>
             </div>
             <div class="docs-nav-section">
                 <div class="docs-nav-title">User Guide</div>
                 <div class="docs-nav-links">
-                    <a href="user-guide.html">Using GemCrest</a>
-                    <a href="settings.html">Settings & Config</a>
+                    <a href="/docs/user-guide">Using GemCrest</a>
+                    <a href="/docs/settings">Settings & Config</a>
                 </div>
             </div>
             <div class="docs-nav-section">
                 <div class="docs-nav-title">Support</div>
                 <div class="docs-nav-links">
-                    <a href="faq.html">FAQ</a>
-                    <a href="../contact.html">Contact Support</a>
+                    <a href="/docs/faq">FAQ</a>
+                    <a href="/contact">Contact Support</a>
                 </div>
             </div>
         </aside>
@@ -127,46 +88,10 @@
             </ol>
 
             <h2>You're Ready!</h2>
-            <p>GemCrest is now set up and ready to use. Continue to the <a href="user-guide.html"
+            <p>GemCrest is now set up and ready to use. Continue to the <a href="/docs/user-guide"
                     style="color:var(--rose-gold);">User Guide</a> to learn how to create your first invoice.</p>
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AravCrestLabs</h3>
-                <p>Crafting elegant software solutions for jewelry businesses.</p>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Product</h4>
-                <div class="footer-links">
-                    <a href="../gemcrest.html">GemCrest</a>
-                    <a href="../gemcrest.html#pricing">Pricing</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Company</h4>
-                <div class="footer-links">
-                    <a href="../about.html">About Us</a>
-                    <a href="../contact.html">Contact</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4 class="footer-heading">Legal</h4>
-                <div class="footer-links">
-                    <a href="../legal/privacy-policy.html">Privacy</a>
-                    <a href="../legal/terms.html">Terms</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AravCrestLabs. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-</body>
-
-</html>
+<%- include('../partials/footer') %>

@@ -5,9 +5,9 @@
 
 // Configuration - Update these values
 const CONFIG = {
-    serverUrl: 'https://uigmdykavqllplgdxtxs.supabase.co/functions/v1/licensing',
-    razorpayKey: 'rzp_test_SCb9YzjstTsU4U', // Replace with live key for production
-    amount: 500000, // Amount in paise (₹5,000)
+    serverUrl: 'PLACEHOLDER_SERVER_URL',
+    razorpayKey: 'PLACEHOLDER_RAZORPAY_KEY', // Replaced by server/build
+    amount: 'PLACEHOLDER_AMOUNT', // Replaced by server/build
     currency: 'INR',
     productName: 'GemCrest',
     productDescription: 'Lifetime License - Single Device'
@@ -26,6 +26,32 @@ function initCheckout() {
         e.preventDefault();
         await handlePurchase();
     });
+
+    // Fetch dynamic price
+    fetchPrice();
+}
+
+async function fetchPrice() {
+    try {
+        const res = await fetch(`${CONFIG.serverUrl}/get-settings`, { method: 'POST' });
+        const data = await res.json();
+
+        if (data && data.price) {
+            CONFIG.amount = parseInt(data.price);
+
+            // Format price (Paise -> Rupees)
+            const rupees = (CONFIG.amount / 100).toLocaleString('en-IN');
+
+            // Update UI
+            const priceValEl = document.getElementById('price-value');
+            if (priceValEl) priceValEl.textContent = rupees;
+
+            const heroBtn = document.getElementById('hero-price-btn');
+            if (heroBtn) heroBtn.textContent = `Purchase for ₹${rupees}`;
+        }
+    } catch (err) {
+        console.error('Failed to load price', err);
+    }
 }
 
 // ----------------------------------------
@@ -141,8 +167,10 @@ async function handlePaymentSuccess(response, name, email) {
     const successView = document.getElementById('success-view');
     const licenseCodeEl = document.getElementById('license-code');
 
-    // Show success view
+    // Show success view (and hide request form/button)
     if (purchaseForm) purchaseForm.classList.add('hidden');
+    const cta = document.querySelector('.pricing-cta');
+    if (cta) cta.classList.add('hidden');
     if (successView) successView.classList.remove('hidden');
 
     try {
