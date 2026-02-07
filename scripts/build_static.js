@@ -143,4 +143,8 @@ if (fs.existsSync(adminJsPath)) {
     console.log('Injected SERVER_URL into admin.js');
 }
 
+// 6. Create .nojekyll to bypass Jekyll processing on GitHub Pages
+fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
+console.log('Created .nojekyll');
+
 console.log('Build complete!');
