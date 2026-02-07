@@ -147,4 +147,9 @@ if (fs.existsSync(adminJsPath)) {
 fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
 console.log('Created .nojekyll');
 
+// 7. Debug: Create file manifest
+const fileList = pages.map(p => p.dest).join('\n');
+fs.writeFileSync(path.join(DIST_DIR, 'debug.txt'), fileList);
+console.log('Created debug.txt');
+
 console.log('Build complete!');
