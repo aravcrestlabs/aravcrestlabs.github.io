@@ -42,6 +42,7 @@ const pages = [
     { src: 'about', dest: 'about.html', data: { title: 'About Us' } },
     { src: 'contact', dest: 'contact.html', data: { title: 'Contact' } },
     { src: 'admin/login', dest: 'admin/login.html', data: { title: 'Admin Login' } },
+    { src: 'admin/login', dest: 'admin/index.html', data: { title: 'Admin Login' } },
     { src: 'admin/dashboard', dest: 'admin/dashboard.html', data: { title: 'Command & Control' } }
 ];
 
