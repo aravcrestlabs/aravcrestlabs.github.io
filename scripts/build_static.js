@@ -148,7 +148,13 @@ if (fs.existsSync(adminJsPath)) {
 fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
 console.log('Created .nojekyll');
 
-// 7. Debug: Create file manifest
+// 7. Create admin.html redirect (Fallback for /admin access)
+// Redirects to ./admin/index.html
+const redirectHtml = '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./admin/index.html"></head><body>Redirecting...</body></html>';
+fs.writeFileSync(path.join(DIST_DIR, 'admin.html'), redirectHtml);
+console.log('Created admin.html redirect');
+
+// 8. Debug: Create file manifest
 const fileList = pages.map(p => p.dest).join('\n');
 fs.writeFileSync(path.join(DIST_DIR, 'debug.txt'), fileList);
 console.log('Created debug.txt');

@@ -33,7 +33,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Check if already logged in
             if (localStorage.getItem('adminSecret')) {
-                window.location.href = '/admin/dashboard';
+                window.location.href = '<%= path %>admin/dashboard<%= ext %>';
             }
 
             const form = document.getElementById('login-form');
@@ -45,7 +45,7 @@
 
                 if (secret.length > 0) {
                     localStorage.setItem('adminSecret', secret);
-                    window.location.href = '/admin/dashboard';
+                    window.location.href = '<%= path %>admin/dashboard<%= ext %>';
                 } else {
                     document.getElementById('login-error').classList.remove('hidden');
                 }
