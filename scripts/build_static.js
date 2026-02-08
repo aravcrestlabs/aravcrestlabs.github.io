@@ -148,11 +148,27 @@ if (fs.existsSync(adminJsPath)) {
 fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
 console.log('Created .nojekyll');
 
-// 7. Create admin.html redirect (Fallback for /admin access)
-// Redirects to ./admin/index.html
-const redirectHtml = '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./admin/index.html"></head><body>Redirecting...</body></html>';
-fs.writeFileSync(path.join(DIST_DIR, 'admin.html'), redirectHtml);
+// 7. Create HTML Redirects (Fallbacks for directory access)
+// Admin Redirects
+const adminRedirect = '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./admin/index.html"></head><body>Redirecting...</body></html>';
+fs.writeFileSync(path.join(DIST_DIR, 'admin.html'), adminRedirect);
 console.log('Created admin.html redirect');
+
+// Docs Redirect (root/docs.html -> docs/index.html)
+const docsRedirect = '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./docs/index.html"></head><body>Redirecting...</body></html>';
+fs.writeFileSync(path.join(DIST_DIR, 'docs.html'), docsRedirect);
+console.log('Created docs.html redirect');
+
+// Legal Redirects (root/legal.html & legal/index.html -> legal/terms.html)
+const legalRedirect = '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./legal/terms.html"></head><body>Redirecting...</body></html>';
+fs.writeFileSync(path.join(DIST_DIR, 'legal.html'), legalRedirect);
+// Ensure legal dir exists
+const distLegalDir = path.join(DIST_DIR, 'legal');
+if (fs.existsSync(distLegalDir)) {
+    const legalIndexRedirect = '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./terms.html"></head><body>Redirecting...</body></html>';
+    fs.writeFileSync(path.join(distLegalDir, 'index.html'), legalIndexRedirect);
+    console.log('Created legal.html and legal/index.html redirects');
+}
 
 // 8. Debug: Create file manifest
 const fileList = pages.map(p => p.dest).join('\n');
