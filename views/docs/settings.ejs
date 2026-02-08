@@ -1,26 +1,26 @@
 <%- include('../partials/header', { title: 'Settings & Configuration | GemCrest Docs' }) %>
-<!-- Documentation Layout -->
+    <!-- Documentation Layout -->
     <div class="docs-layout">
         <aside class="docs-sidebar">
             <div class="docs-nav-section">
                 <div class="docs-nav-title">Getting Started</div>
                 <div class="docs-nav-links">
-                    <a href="/docs/">Overview</a>
-                    <a href="/docs/getting-started">Installation & Setup</a>
+                    <a href="<%= path %>docs/index<%= ext %>">Overview</a>
+                    <a href="<%= path %>docs/getting-started<%= ext %>">Installation & Setup</a>
                 </div>
             </div>
             <div class="docs-nav-section">
                 <div class="docs-nav-title">User Guide</div>
                 <div class="docs-nav-links">
-                    <a href="/docs/user-guide">Using GemCrest</a>
-                    <a href="/docs/settings" class="active">Settings & Config</a>
+                    <a href="<%= path %>docs/user-guide<%= ext %>">Using GemCrest</a>
+                    <a href="<%= path %>docs/settings<%= ext %>" class="active">Settings & Config</a>
                 </div>
             </div>
             <div class="docs-nav-section">
                 <div class="docs-nav-title">Support</div>
                 <div class="docs-nav-links">
-                    <a href="/docs/faq">FAQ</a>
-                    <a href="/contact">Contact Support</a>
+                    <a href="<%= path %>docs/faq<%= ext %>">FAQ</a>
+                    <a href="<%= path %>contact<%= ext %>">Contact Support</a>
                 </div>
             </div>
         </aside>
@@ -137,4 +137,4 @@
     </div>
 
     <!-- Footer -->
-<%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>
