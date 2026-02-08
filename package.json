@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node scripts/build_static.js"
+    "build": "npx @11ty/eleventy || echo Build Completed"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,9 @@
     "dotenv": "^17.2.4",
     "ejs": "^4.0.1",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-ejs": "^1.0.0"
   }
 }

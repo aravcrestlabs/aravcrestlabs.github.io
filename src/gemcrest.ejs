@@ -1,0 +1,252 @@
+---
+title: GemCrest
+scripts: ['js/checkout.js']
+---
+<%- include('partials/header') %>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height:70vh;">
+        <div class="hero-content" style="grid-template-columns:1fr;">
+            <div class="hero-text" style="text-align:center;max-width:800px;margin:0 auto;">
+                <h1>Meet <span class="accent">GemCrest</span></h1>
+                <p style="max-width:700px;margin:0 auto 2.5rem;">
+                    The complete billing and inventory solution designed exclusively for jewelry businesses in India.
+                    Professional, powerful, and refreshingly simple.
+                </p>
+                <div class="hero-buttons" style="justify-content:center;">
+                    <a href="#pricing" class="btn btn-primary" id="hero-price-btn">Purchase for ₹5,000</a>
+                    <a href="<%= path %>docs/index<%= ext %>" class="btn btn-secondary">Read Documentation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Powerful Features</div>
+                <h2 class="section-title">Everything a <span class="accent">Jeweler</span> Needs</h2>
+            </div>
+
+            <div class="grid grid-3 reveal-stagger">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning-Fast Billing</h3>
+                    <p>Transform invoicing into an instant process. Auto-calculates making charges, handles old gold
+                        exchanges, and generates print-ready GST invoices in under 10 seconds.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Smart Inventory</h3>
+                    <p>Never lose track again. Real-time stock monitoring, automatic low-stock alerts, multi-purity
+                        tracking, and comprehensive HUID management keep your inventory under complete control.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Offline</h3>
+                    <p>Your data stays yours. Zero cloud dependency means maximum privacy, blazing fast performance, and
+                        complete control—work confidently even without internet.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Live Metal Rates</h3>
+                    <p>Stay ahead of the market. Daily gold and silver rate updates with automatic price calculations
+                        across multiple purities, plus historical tracking for smarter pricing decisions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Customer CRM</h3>
+                    <p>Build lasting relationships. Offline pincode database for instant address completion, complete
+                        purchase history tracking, and quick customer search—all at your fingertips.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Business Insights</h3>
+                    <p>Make data-driven decisions. Beautiful visual analytics reveal sales patterns, top-performing
+                        items, revenue trends, and custom reports that show exactly where your business is heading.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="section section-warm">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Technical Specifications</div>
+                <h2 class="section-title">System Requirements</h2>
+            </div>
+
+            <div class="grid grid-2" style="max-width:1000px;margin:0 auto;">
+                <div class="feature-card">
+                    <h3>Minimum Requirements</h3>
+                    <p style="margin-top:1.5rem;">
+                        <strong>Operating System:</strong> Windows 10 or later (64-bit)<br>
+                        <strong>Processor:</strong> Intel Core i3 or equivalent<br>
+                        <strong>RAM:</strong> 4 GB<br>
+                        <strong>Storage:</strong> 500 MB available space<br>
+                        <strong>Display:</strong> 1366×768 resolution or higher
+                    </p>
+
+                    <h4 style="margin-top:2rem;color:var(--rose-gold);">Recommended</h4>
+                    <p>
+                        <strong>Processor:</strong> Intel Core i5 or better<br>
+                        <strong>RAM:</strong> 8 GB or more<br>
+                        <strong>Storage:</strong> SSD for optimal performance
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>What's Included</h3>
+                    <ul class="feature-list" style="margin-top:1.5rem;">
+                        <li>Complete GemCrest software</li>
+                        <li>Offline pincode database (India)</li>
+                        <li>Invoice templates</li>
+                        <li>User manual & documentation</li>
+                        <li>Lifetime updates (minor versions)</li>
+                        <li>Email support</li>
+                        <li>Single device license</li>
+                    </ul>
+
+                    <h4 style="margin-top:2rem;color:var(--rose-gold);">Future Plans</h4>
+                    <p>
+                        We're constantly improving GemCrest based on user feedback. Planned features include advanced
+                        reporting, multi-location support, and more.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Simple Pricing</div>
+                <h2 class="section-title">One Price, <span class="accent">Lifetime Access</span></h2>
+                <p class="section-description">
+                    No subscriptions. No hidden fees. Just honest, transparent pricing.
+                </p>
+            </div>
+
+            <div class="pricing-card reveal-scale">
+                <div class="pricing-header-grid">
+                    <div class="pricing-header-left">
+                        <div class="pricing-badge">Limited Time Offer</div>
+                        <h3 class="pricing-plan">GemCrest Lifetime License</h3>
+                        <div class="pricing-price-box">
+                            <div class="pricing-original">₹15,000</div>
+                            <div class="pricing-amount">
+                                <span class="currency">₹</span><span id="price-value">5,000</span>
+                            </div>
+                        </div>
+                        <p class="pricing-note">One-time payment • Forever yours</p>
+                    </div>
+
+                    <div class="pricing-header-right">
+                        <h4
+                            style="font-size:1.1rem;margin-bottom:1rem;border-bottom:var(--border-thick);padding-bottom:0.5rem;">
+                            What's Included:</h4>
+                        <ul class="pricing-features">
+                            <li>Lifetime License + Minor Updates</li>
+                            <li>100% Offline Database Included</li>
+                            <li>All Premium Features Unlocked</li>
+                            <li>Priority Support & Custom Invoices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form class="pricing-form" id="purchase-form">
+                    <div class="form-group">
+                        <label for="customer-name">Full Name *</label>
+                        <input type="text" id="customer-name" name="customerName" required placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">Email Address *</label>
+                        <input type="email" id="customer-email" name="customerEmail" required
+                            placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAge">Age *</label>
+                        <input type="number" id="customerAge" name="customerAge" required min="18" max="120"
+                            placeholder="18+">
+                    </div>
+                </form>
+
+                <div class="pricing-cta">
+                    <button type="button" class="btn btn-primary w-full" id="pay-btn">Purchase GemCrest
+                        Now</button>
+                    <p style="margin-top:0.5rem;font-size:0.75rem;opacity:0.7;text-align:center;">
+                        Secure payment processing by Razorpay
+                    </p>
+                    <div id="error-message" class="hidden" style="color:red;text-align:center;margin-top:0.5rem;"></div>
+                </div>
+
+                <!-- Success Message (hidden by default) -->
+                <div id="success-view" class="hidden" style="text-align:center;padding:2rem;grid-column:1/-1;">
+                    <div style="font-size:3rem;margin-bottom:1rem;">✓</div>
+                    <h3 style="color:var(--accent-color);margin-bottom:1rem;">Payment Successful!</h3>
+                    <p style="margin-bottom:0.5rem; font-weight: bold;">Thank you for your purchase.</p>
+                    <p style="margin-bottom:1.5rem;">Your license code is below and has been sent to your email.</p>
+                    <div style="background:var(--secondary-bg);padding:1.5rem;border:var(--border-thick);font-family:monospace;font-size:1.2rem;"
+                        id="license-code">
+                        XXXX-XXXX-XXXX-XXXX
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-warm">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Questions?</div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="legal-content" style="padding:0;">
+                <h3>What is a "lifetime license"?</h3>
+                <p>
+                    You pay once and own GemCrest forever. You'll receive all minor updates (e.g., 1.x versions) for
+                    free. Major version upgrades (e.g., 2.0) may have an optional upgrade fee, but you can continue
+                    using your current version indefinitely.
+                </p>
+
+                <h3>Can I use GemCrest on multiple computers?</h3>
+                <p>
+                    Each license is valid for one device. If you need to use GemCrest on multiple computers, please
+                    contact us for multi-device licensing options.
+                </p>
+
+                <h3>Is internet required?</h3>
+                <p>
+                    No! GemCrest works 100% offline. Your data is stored locally on your device. Internet is only needed
+                    for downloading updates (optional).
+                </p>
+
+                <h3>Do you offer refunds?</h3>
+                <p>
+                    Due to the nature of digital products, all sales are final. Please review our features and
+                    documentation carefully before purchasing. Read our full <a
+                        href="<%= path %>legal/refund-policy<%= ext %>" style="color:var(--rose-gold);">refund
+                        policy</a>.
+                </p>
+
+                <h3>Do you offer support?</h3>
+                <p>
+                    Yes! Email support is included with your license. We typically respond within 24 hours during
+                    business days.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>

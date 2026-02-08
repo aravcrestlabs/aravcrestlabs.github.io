@@ -5,10 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const ADMIN_SECRET_KEY = 'adminSecret';
     // Use the global BASE_PATH injected by the layout, or fallback to root if undefined
     const BASE_PATH = window.BASE_PATH || '/';
-    const API_URL = window.SERVER_URL || 'https://gemcrest-backend-production.up.railway.app';
+    const API_URL = window.SERVER_URL || 'https://uigmdykavqllplgdxtxs.supabase.co/functions/v1/licensing';
+
+    // Get admin secret from localStorage
+    const secret = localStorage.getItem(ADMIN_SECRET_KEY);
+
+    // Check authentication immediately
+    if (!secret) {
+        window.location.href = BASE_PATH + 'admin/login/';
+        return;
+    }
 
     // Initialize Data
     console.log('Initializing Admin Dashboard...');
+    console.log('DEBUG: API_URL =', API_URL);
+    console.log('DEBUG: Secret from localStorage =', secret ? '(set, length: ' + secret.length + ')' : '(NOT SET)');
     // fetchLicenses and fetchSettings are called at the bottom of this function
     // ----------------------------------------
     // State
@@ -52,12 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             renderLoading();
             // Note: index.ts expects the last part of url path to be the action name
+            console.log('DEBUG: Fetching licenses from:', `${API_URL}/get-licenses`);
+            console.log('DEBUG: Using headers:', JSON.stringify(headers));
             const res = await fetch(`${API_URL}/get-licenses`, {
                 method: 'POST',
                 headers
             });
 
+            console.log('DEBUG: Response status:', res.status);
             if (res.status === 401) {
+                console.log('DEBUG: Got 401, logging out...');
                 handleLogout();
                 return;
             }
@@ -206,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------
     function handleLogout() {
         localStorage.removeItem('adminSecret');
-        window.location.href = '/admin/login';
+        window.location.href = BASE_PATH + 'admin/login/';
     }
 
     logoutBtn.addEventListener('click', handleLogout);
