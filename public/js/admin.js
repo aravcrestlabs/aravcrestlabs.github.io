@@ -7,11 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const BASE_PATH = window.BASE_PATH || '/';
     const API_URL = window.SERVER_URL || 'https://gemcrest-backend-production.up.railway.app';
 
-    // Check authentication immediately
-    if (!checkAuth()) {
-        return; // Stop execution if not authenticated
-    }
-
+    // Initialize Data
+    console.log('Initializing Admin Dashboard...');
+    // fetchLicenses and fetchSettings are called at the bottom of this function
     // ----------------------------------------
     // State
     // ----------------------------------------
