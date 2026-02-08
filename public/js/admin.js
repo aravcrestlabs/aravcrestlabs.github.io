@@ -2,12 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------
     // Configuration & Auth Check
     // ----------------------------------------
-    const API_URL = 'PLACEHOLDER_SERVER_URL';
-    const secret = localStorage.getItem('adminSecret');
+    const ADMIN_SECRET_KEY = 'adminSecret';
+    // Use the global BASE_PATH injected by the layout, or fallback to root if undefined
+    const BASE_PATH = window.BASE_PATH || '/';
+    const API_URL = window.SERVER_URL || 'https://gemcrest-backend-production.up.railway.app';
 
-    if (!secret) {
-        window.location.href = '/admin/login';
-        return;
+    // Check authentication immediately
+    if (!checkAuth()) {
+        return; // Stop execution if not authenticated
     }
 
     // ----------------------------------------
