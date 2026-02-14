@@ -41,7 +41,7 @@ jobs:
           # Inject Secrets if present
           RAZORPAY_KEY: ${{ secrets.RAZORPAY_KEY }}
           SERVER_URL: ${{ secrets.SERVER_URL }}
-          AMOUNT: ${{ secrets.AMOUNT }}
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
