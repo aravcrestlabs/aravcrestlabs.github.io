@@ -5,25 +5,18 @@
 
 // Configuration - Update these values
 const CONFIG = {
-    // Public URL for Supabase Edge Function
-    serverUrl: 'https://uigmdykavqllplgdxtxs.supabase.co/functions/v1/licensing',
-    // Public Key ID (Safe to expose on frontend)
-    razorpayKey: 'rzp_live_SG6a7nPhqywN2j',
-    amount: 500000, // Default fallback, updated by fetchPrice
+    serverUrl: 'PLACEHOLDER_SERVER_URL',
+    razorpayKey: 'PLACEHOLDER_RAZORPAY_KEY', // Replaced by server/build
+    amount: 'PLACEHOLDER_AMOUNT', // Replaced by server/build
     currency: 'INR',
     productName: 'GemCrest',
     productDescription: 'Lifetime License - Single Device'
 };
 
-let isEmailVerified = false;
-
 // ----------------------------------------
 // Initialize Checkout Form
 // ----------------------------------------
 function initCheckout() {
-    // Fetch dynamic price globally
-    fetchPrice();
-
     const payBtn = document.getElementById('pay-btn');
     const purchaseForm = document.getElementById('purchase-form');
 
@@ -34,11 +27,8 @@ function initCheckout() {
         await handlePurchase();
     });
 
-    // OTP Listeners
-    const actionBtn = document.getElementById('smart-action-btn');
-    if (actionBtn) {
-        actionBtn.addEventListener('click', handleSmartAction);
-    }
+    // Fetch dynamic price
+    fetchPrice();
 }
 
 async function fetchPrice() {
@@ -51,163 +41,17 @@ async function fetchPrice() {
 
             // Format price (Paise -> Rupees)
             const rupees = (CONFIG.amount / 100).toLocaleString('en-IN');
-            const originalPrice = (CONFIG.amount * 3 / 100).toLocaleString('en-IN'); // Fake original price (3x)
 
             // Update UI
-            const priceValEl = document.getElementById('price-value'); // Fixed ID
+            const priceValEl = document.getElementById('price-value');
             if (priceValEl) priceValEl.textContent = rupees;
 
             const heroBtn = document.getElementById('hero-price-btn');
             if (heroBtn) heroBtn.textContent = `Purchase for ₹${rupees}`;
-
-            // Update original price (crossed out)
-            const originalPriceEls = document.querySelectorAll('.pricing-original');
-            originalPriceEls.forEach(el => el.textContent = `₹${originalPrice}`);
-
-            // Update any other price tags
-            const allPriceTags = document.querySelectorAll('.dynamic-price');
-            allPriceTags.forEach(el => el.textContent = `₹${rupees}`);
         }
     } catch (err) {
         console.error('Failed to load price', err);
-        // Fallback to default if fetch fails
-        const rupees = (CONFIG.amount / 100).toLocaleString('en-IN');
-        const priceValEl = document.getElementById('price-value'); // Fixed ID
-        if (priceValEl) priceValEl.textContent = rupees;
-
-        const heroBtn = document.getElementById('hero-price-btn');
-        if (heroBtn) heroBtn.textContent = `Purchase for ₹${rupees}`;
     }
-}
-
-// ----------------------------------------
-// OTP Flow
-// ----------------------------------------
-
-// State Machine for Smart Input
-// 0: Initial (Show Verify)
-// 1: OTP Sent (Show Confirm, Input transforms)
-// 2: Verified (Show Check, Input Green)
-let smartState = 0;
-
-async function handleSmartAction() {
-    if (smartState === 0) {
-        await handleSendOTP();
-    } else if (smartState === 1) {
-        await handleVerifyOTP();
-    }
-}
-
-async function handleSendOTP() {
-    const emailInput = document.getElementById('customer-email');
-    const nameInput = document.getElementById('customer-name');
-    const actionBtn = document.getElementById('smart-action-btn');
-    const container = document.getElementById('smart-container');
-
-    const email = emailInput?.value?.trim();
-    const name = nameInput?.value?.trim();
-
-    if (!isValidEmail(email)) {
-        showOTPMessage('Please enter a valid email first.', 'red');
-        return;
-    }
-
-    setButtonLoading(actionBtn, true);
-
-    try {
-        const res = await fetch(`${CONFIG.serverUrl}/send-purchase-otp`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, name })
-        });
-
-        if (res.ok) {
-            // TRANSITION TO OTP MODE
-            smartState = 1;
-            container.classList.add('otp-mode');
-
-            showOTPMessage('OTP sent! Check your email.', 'green');
-
-            actionBtn.textContent = 'CONFIRM';
-            actionBtn.style.backgroundColor = 'var(--accent-color)';
-            actionBtn.style.color = '#000';
-
-            // Focus OTP input
-            setTimeout(() => document.getElementById('email-otp-input').focus(), 300);
-        } else {
-            throw new Error('Failed to send OTP');
-        }
-    } catch (err) {
-        console.error(err);
-        showOTPMessage('Failed to send email. Try again.', 'red');
-    } finally {
-        setButtonLoading(actionBtn, false);
-    }
-}
-
-async function handleVerifyOTP() {
-    const emailInput = document.getElementById('customer-email');
-    const otpInput = document.getElementById('email-otp-input'); // Updated ID
-    const actionBtn = document.getElementById('smart-action-btn');
-    const container = document.getElementById('smart-container');
-
-    const email = emailInput?.value?.trim();
-    const otp = otpInput?.value?.trim();
-
-    if (!otp) {
-        showOTPMessage('Please enter OTP.', 'red');
-        return;
-    }
-
-    setButtonLoading(actionBtn, true);
-
-    try {
-        const res = await fetch(`${CONFIG.serverUrl}/verify-purchase-otp`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, otp })
-        });
-
-        if (res.ok) {
-            isEmailVerified = true;
-            smartState = 2;
-
-            // TRANSITION TO VERIFIED MODE
-            container.classList.remove('otp-mode');
-            container.classList.add('verified');
-
-            showOTPMessage('', 'green'); // Clear message
-
-            actionBtn.innerHTML = '✓';
-            actionBtn.style.backgroundColor = '#28a745';
-            actionBtn.style.color = '#fff';
-
-            // Lock inputs
-            emailInput.readOnly = true;
-            otpInput.style.display = 'none'; // Hide OTP input explicitly
-
-        } else {
-            throw new Error('Invalid OTP');
-        }
-    } catch (err) {
-        console.error(err);
-        showOTPMessage('Invalid or Expired OTP.', 'red');
-    } finally {
-        if (smartState !== 2) {
-            setButtonLoading(actionBtn, false);
-        }
-    }
-}
-
-function showOTPMessage(msg, color) {
-    const el = document.getElementById('otp-message');
-    if (!el) return;
-    el.textContent = msg;
-    el.style.color = color === 'green' ? '#155724' : '#721c24';
-    el.style.background = color === 'green' ? '#d4edda' : '#f8d7da';
-    el.style.border = `1px solid ${color === 'green' ? '#c3e6cb' : '#f5c6cb'}`;
-    el.classList.remove('hidden');
-    if (!msg) el.classList.add('hidden');
 }
 
 // ----------------------------------------
@@ -218,7 +62,7 @@ async function handlePurchase() {
     const emailInput = document.getElementById('customer-email');
     const payBtn = document.getElementById('pay-btn');
 
-    const name = nameInput?.value?.trim().replace(/\b\w/g, l => l.toUpperCase());
+    const name = nameInput?.value?.trim();
     const email = emailInput?.value?.trim();
 
     // Validation
@@ -232,28 +76,19 @@ async function handlePurchase() {
         return;
     }
 
-    if (!isEmailVerified) {
-        showError('Please verify your email address via OTP first.');
-        return;
-    }
-
     // Update button state
     setButtonLoading(payBtn, true);
 
     try {
-        // Step 1: Create Order (Standard Flow)
+        // Step 1: Create order on server
         const order = await createOrder();
 
-        // Step 2: Show QR UI Container (Fake embedded feel)
-        showQRUI();
-
-        // Step 3: Open Razorpay Checkout (Configured for QR)
-        openRazorpayCheckout(order, name, email);
+        // Step 2: Open Razorpay checkout
+        await openRazorpayCheckout(order, name, email);
 
     } catch (error) {
         console.error('Purchase error:', error);
         showError('Something went wrong. Please try again or contact support.');
-        resetUI();
         setButtonLoading(payBtn, false);
     }
 }
@@ -264,111 +99,127 @@ async function handlePurchase() {
 async function createOrder() {
     const response = await fetch(`${CONFIG.serverUrl}/create-order`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: CONFIG.amount })
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            amount: CONFIG.amount
+        })
     });
 
-    if (!response.ok) throw new Error('Failed to create order');
+    if (!response.ok) {
+        throw new Error('Failed to create order');
+    }
+
     return await response.json();
 }
 
-function showQRUI() {
-    // We just show a loading state here because Razorpay opens an overlay
-    const payBtn = document.getElementById('pay-btn');
-    if (payBtn) {
-        payBtn.textContent = 'OPENING CHECKOUT...';
-        payBtn.disabled = true;
-        payBtn.style.background = '#333';
-        payBtn.style.cursor = 'default';
-    }
-}
-
-function resetUI() {
-    const payBtn = document.getElementById('pay-btn');
-    if (payBtn) {
-        setButtonLoading(payBtn, false);
-    }
-}
-
 // ----------------------------------------
-// Open Razorpay Checkout (UPI QR Mode)
+// Open Razorpay Checkout
 // ----------------------------------------
 function openRazorpayCheckout(order, name, email) {
-    const options = {
-        key: CONFIG.razorpayKey,
-        amount: order.amount,
-        currency: order.currency,
-        name: CONFIG.productName,
-        description: CONFIG.productDescription,
-        order_id: order.id,
-        handler: async function (response) {
-            document.getElementById('pay-btn').textContent = 'VERIFYING...';
-            await handlePaymentSuccess(response, name, email);
-        },
-        prefill: { name, email },
-        theme: {
-            color: "#ccff00"
-        },
-        modal: {
-            ondismiss: function () {
-                resetUI();
+    return new Promise((resolve, reject) => {
+        const options = {
+            key: CONFIG.razorpayKey,
+            amount: order.amount,
+            currency: CONFIG.currency,
+            name: 'AravCrestLabs',
+            description: CONFIG.productDescription,
+            image: 'assets/gemcrest-icon.svg',
+            order_id: order.id,
+            handler: async function (response) {
+                // Payment successful - verify on server
+                await handlePaymentSuccess(response, name, email);
+                resolve(response);
+            },
+            prefill: {
+                name: name,
+                email: email
+            },
+            theme: {
+                color: '#fbbf24'
+            },
+            modal: {
+                ondismiss: function () {
+                    setButtonLoading(document.getElementById('pay-btn'), false);
+                    resolve(null);
+                }
             }
-        }
-    };
+        };
 
-    const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function (response) {
-        showError('Payment failed. Please try again.');
-        resetUI();
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function (response) {
+            showError('Payment failed. Please try again.');
+            setButtonLoading(document.getElementById('pay-btn'), false);
+            reject(response.error);
+        });
+
+        rzp.open();
     });
-    rzp.open();
 }
 
 // ----------------------------------------
 // Handle Payment Success
 // ----------------------------------------
 async function handlePaymentSuccess(response, name, email) {
+    const payBtn = document.getElementById('pay-btn');
     const purchaseForm = document.getElementById('purchase-form');
     const successView = document.getElementById('success-view');
     const licenseCodeEl = document.getElementById('license-code');
-    const qrContainer = document.getElementById('qr-payment-container');
 
-    if (qrContainer) qrContainer.style.display = 'none';
+    // Show success view (and hide request form/button)
     if (purchaseForm) purchaseForm.classList.add('hidden');
     const cta = document.querySelector('.pricing-cta');
     if (cta) cta.classList.add('hidden');
     if (successView) successView.classList.remove('hidden');
 
     try {
+        // Verify payment on server
         const verifyRes = await fetch(`${CONFIG.serverUrl}/verify-payment`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                name, email
+                name: name,
+                email: email
             })
         });
 
         const data = await verifyRes.json();
 
         if (data.success) {
+            // Display license code
             if (licenseCodeEl) {
                 licenseCodeEl.textContent = data.code;
                 licenseCodeEl.classList.add('scale-in');
             }
+
+            // Show email warning if email failed
+            if (data.emailError) {
+                showEmailWarning();
+            }
         } else {
-            if (licenseCodeEl) licenseCodeEl.textContent = 'CONTACT SUPPORT';
-            showError('Verification failed. Payment ID: ' + response.razorpay_payment_id);
+            if (licenseCodeEl) {
+                licenseCodeEl.textContent = 'ERROR - CONTACT SUPPORT';
+            }
+            showError('Verification failed. Please contact support with your payment ID: ' + response.razorpay_payment_id);
         }
     } catch (error) {
         console.error('Verification error:', error);
-        if (licenseCodeEl) licenseCodeEl.textContent = 'VERIFICATION ERROR';
+        if (licenseCodeEl) {
+            licenseCodeEl.textContent = 'VERIFICATION ERROR';
+        }
         showError('Could not verify payment. Please contact support.');
     }
+
+    setButtonLoading(payBtn, false);
 }
 
+// ----------------------------------------
 // Utility Functions
 // ----------------------------------------
 
