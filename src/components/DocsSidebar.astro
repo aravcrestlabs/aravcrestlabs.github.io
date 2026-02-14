@@ -1,0 +1,28 @@
+---
+const { currentPath = '' } = Astro.props;
+
+const isActive = (path) => currentPath === path ? 'active' : '';
+---
+<aside class="docs-sidebar">
+    <div class="docs-nav-section">
+        <div class="docs-nav-title">Getting Started</div>
+        <div class="docs-nav-links">
+            <a href="/docs" class={isActive('/docs')}>Overview</a>
+            <a href="/docs/getting-started" class={isActive('/docs/getting-started')}>Installation & Setup</a>
+        </div>
+    </div>
+    <div class="docs-nav-section">
+        <div class="docs-nav-title">User Guide</div>
+        <div class="docs-nav-links">
+            <a href="/docs/user-guide" class={isActive('/docs/user-guide')}>Using GemCrest</a>
+            <a href="/docs/settings" class={isActive('/docs/settings')}>Settings & Config</a>
+        </div>
+    </div>
+    <div class="docs-nav-section">
+        <div class="docs-nav-title">Support</div>
+        <div class="docs-nav-links">
+            <a href="/docs/faq" class={isActive('/docs/faq')}>FAQ</a>
+            <a href="/contact">Contact Support</a>
+        </div>
+    </div>
+</aside>

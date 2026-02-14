@@ -18,3 +18,18 @@ Thumbs.db
 *.temp
 .env
 licensing-server/
+
+# Astro
+.astro/
+dist/
+
+# Project specific
+file_tree.txt
+error_cmd.txt
+server.js
+contact.html
+about.html
+index.html
+gemcrest.html
+views/
+src/_data/

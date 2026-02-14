@@ -1,0 +1,21 @@
+---
+const { title = '' } = Astro.props;
+---
+<nav class="navbar" id="navbar">
+    <div class="navbar-content">
+        <a href="/" class="navbar-logo">AravCrestLabs</a>
+        <div class="navbar-nav">
+            <a href="/" class:list={["navbar-link", { active: title === 'Home' }]}>Home</a>
+            <a href="/about" class:list={["navbar-link", { active: title === 'About Us' }]}>About</a>
+            <a href="/gemcrest" class:list={["navbar-link", { active: title === 'GemCrest' }]}>GemCrest</a>
+            <a href="/docs" class="navbar-link">Docs</a>
+            <a href="/contact" class:list={["navbar-link", { active: title === 'Contact' }]}>Contact</a>
+            <a href="/gemcrest#pricing" class="navbar-cta">Get Started</a>
+        </div>
+        <button class="navbar-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>

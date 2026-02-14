@@ -5,9 +5,9 @@
 
 // Configuration - Update these values
 const CONFIG = {
-    serverUrl: 'PLACEHOLDER_SERVER_URL',
-    razorpayKey: 'PLACEHOLDER_RAZORPAY_KEY', // Replaced by server/build
-    amount: 'PLACEHOLDER_AMOUNT', // Replaced by server/build
+    serverUrl: window.GEMCREST_CONFIG?.serverUrl || 'PLACEHOLDER_SERVER_URL',
+    razorpayKey: window.GEMCREST_CONFIG?.razorpayKey || 'PLACEHOLDER_RAZORPAY_KEY',
+    amount: window.GEMCREST_CONFIG?.amount || 'PLACEHOLDER_AMOUNT',
     currency: 'INR',
     productName: 'GemCrest',
     productDescription: 'Lifetime License - Single Device'
@@ -19,6 +19,24 @@ const CONFIG = {
 function initCheckout() {
     const payBtn = document.getElementById('pay-btn');
     const purchaseForm = document.getElementById('purchase-form');
+    const verifyBtn = document.getElementById('smart-action-btn');
+
+    // Fetch dynamic price immediately
+    fetchPrice();
+
+    if (verifyBtn) {
+        verifyBtn.addEventListener('click', handleVerifyClick);
+    }
+
+    // OTP Input Auto-verify
+    const otpInput = document.getElementById('email-otp-input');
+    if (otpInput) {
+        otpInput.addEventListener('input', (e) => {
+            if (e.target.value.length === 6) {
+                verifyOtp(e.target.value);
+            }
+        });
+    }
 
     if (!payBtn || !purchaseForm) return;
 
@@ -26,9 +44,6 @@ function initCheckout() {
         e.preventDefault();
         await handlePurchase();
     });
-
-    // Fetch dynamic price
-    fetchPrice();
 }
 
 async function fetchPrice() {
@@ -42,15 +57,132 @@ async function fetchPrice() {
             // Format price (Paise -> Rupees)
             const rupees = (CONFIG.amount / 100).toLocaleString('en-IN');
 
-            // Update UI
+            // Update UI - Purchase Page
             const priceValEl = document.getElementById('price-value');
             if (priceValEl) priceValEl.textContent = rupees;
 
             const heroBtn = document.getElementById('hero-price-btn');
             if (heroBtn) heroBtn.textContent = `Purchase for ₹${rupees}`;
+
+            // Update UI - Home Page / Slashed Price
+            const dynamicPriceEls = document.querySelectorAll('.dynamic-price');
+            dynamicPriceEls.forEach(el => el.textContent = `₹${rupees}`);
+
+            // Update pricing-original if needed (assuming double the price or similar, logic can be adjusted)
+            const originalPriceEls = document.querySelectorAll('.pricing-original');
+            originalPriceEls.forEach(el => {
+                // Example: Show 20% more as original price
+                const original = Math.round((CONFIG.amount / 100) * 1.25).toLocaleString('en-IN');
+                el.textContent = `₹${original}`;
+            });
         }
     } catch (err) {
         console.error('Failed to load price', err);
+    }
+}
+
+// ----------------------------------------
+// Verification Logic
+// ----------------------------------------
+let verificationState = {
+    email: '',
+    verified: false,
+    otpSent: false
+};
+
+async function handleVerifyClick(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const emailInput = document.getElementById('customer-email');
+    const container = document.getElementById('smart-container');
+    const messageEl = document.getElementById('otp-message');
+
+    const email = emailInput?.value?.trim();
+
+    if (!isValidEmail(email)) {
+        showError('Please enter a valid email address.');
+        return;
+    }
+
+    if (verificationState.verified) return;
+
+    // Send OTP
+    setButtonLoading(btn, true, 'Sending...');
+
+    try {
+        const res = await fetch(`${CONFIG.serverUrl}/send-purchase-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            verificationState.email = email;
+            verificationState.otpSent = true;
+
+            // Update UI to OTP mode
+            container.classList.add('otp-mode');
+            btn.textContent = 'VERIFYING...'; // Will be hidden or used for manual submit if needed, but input auto-submits
+            btn.style.display = 'none'; // Hide button, let user enter OTP
+
+            if (messageEl) {
+                messageEl.textContent = `OTP sent to ${email}`;
+                messageEl.classList.remove('hidden');
+                messageEl.style.color = 'var(--accent-color)';
+            }
+
+            document.getElementById('email-otp-input').focus();
+        } else {
+            showError(data.message || 'Failed to send OTP');
+        }
+    } catch (err) {
+        console.error('OTP Error:', err);
+        showError('Could not send OTP. Please try again.');
+    } finally {
+        if (!verificationState.otpSent) {
+            setButtonLoading(btn, false, 'VERIFY');
+        }
+    }
+}
+
+async function verifyOtp(otp) {
+    const container = document.getElementById('smart-container');
+    const messageEl = document.getElementById('otp-message');
+    const emailInput = document.getElementById('customer-email');
+
+    try {
+        const res = await fetch(`${CONFIG.serverUrl}/verify-purchase-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: verificationState.email, otp })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            verificationState.verified = true;
+            container.classList.remove('otp-mode');
+            container.classList.add('verified');
+
+            if (messageEl) {
+                messageEl.textContent = 'Email Verified Successfully';
+                messageEl.style.color = '#28a745';
+            }
+
+            // disable email input
+            emailInput.readOnly = true;
+        } else {
+            if (messageEl) {
+                messageEl.textContent = 'Invalid OTP. Please try again.';
+                messageEl.style.color = 'red';
+            }
+            // Reset OTP input
+            document.getElementById('email-otp-input').value = '';
+        }
+    } catch (err) {
+        console.error('Verify OTP Error:', err);
     }
 }
 
@@ -75,6 +207,12 @@ async function handlePurchase() {
         showError('Please enter a valid email address.');
         return;
     }
+
+    // Check verification if strictly required (optional based on UX)
+    // if (!verificationState.verified) {
+    //      showError('Please verify your email address first.');
+    //      return;
+    // }
 
     // Update button state
     setButtonLoading(payBtn, true);
@@ -228,16 +366,16 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-function setButtonLoading(btn, isLoading) {
+function setButtonLoading(btn, isLoading, loadingText = 'Processing...') {
     if (!btn) return;
 
     if (isLoading) {
         btn.disabled = true;
         btn.dataset.originalText = btn.textContent;
-        btn.innerHTML = '<span class="spinner"></span> Processing...';
+        btn.innerHTML = `<span class="spinner"></span> ${loadingText}`;
     } else {
         btn.disabled = false;
-        btn.textContent = btn.dataset.originalText || 'Buy Now';
+        btn.textContent = loadingText === 'Processing...' ? (btn.dataset.originalText || 'Buy Now') : loadingText;
     }
 }
 

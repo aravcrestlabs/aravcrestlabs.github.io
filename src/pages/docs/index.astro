@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="Docs">
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        <DocsSidebar currentPath="/docs" />
+
+        <main class="docs-content">
+            <h1>GemCrest <span class="accent">Documentation</span></h1>
+            <p>Welcome to the official documentation for GemCrest, the elegant jewelry billing software by
+                AravCrestLabs.</p>
+
+            <h2>Quick Overview</h2>
+            <p>GemCrest is a professional-grade billing and inventory management solution designed exclusively for
+                jewelry businesses in India. It combines powerful features with an intuitive interface to help you
+                manage your shop efficiently.</p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>GST-Compliant Invoicing:</strong> Generate professional invoices with all tax calculations
+                    handled automatically</li>
+                <li><strong>Inventory Management:</strong> Track every item with weight, purity, HUID, and stock levels
+                </li>
+                <li><strong>Customer CRM:</strong> Maintain customer profiles with purchase history</li>
+                <li><strong>Metal Rates:</strong> Update daily gold/silver rates for accurate pricing</li>
+                <li><strong>100% Offline:</strong> All data stays on your device, no internet required</li>
+            </ul>
+
+            <h2>Getting Started</h2>
+            <p>New to GemCrest? Start with these guides:</p>
+            <ol>
+                <li><a href="/docs/getting-started" style="color:var(--rose-gold);">Installation &
+                        Setup</a> — Download,
+                    install, and activate your license</li>
+                <li><a href="/docs/user-guide" style="color:var(--rose-gold);">User Guide</a> —
+                    Learn to create
+                    invoices,
+                    manage inventory, and more</li>
+                <li><a href="/docs/settings" style="color:var(--rose-gold);">Settings</a> —
+                    Configure your shop profile
+                    and preferences</li>
+            </ol>
+
+            <h2>Need Help?</h2>
+            <p>If you can't find what you're looking for:</p>
+            <ul>
+                <li>Check the <a href="/docs/faq" style="color:var(--rose-gold);">FAQ section</a>
+                    for common questions
+                </li>
+                <li>Email us at <a href="mailto:aravcrestlabs@proton.me"
+                        style="color:var(--rose-gold);">aravcrestlabs@proton.me</a></li>
+            </ul>
+        </main>
+    </div>
+</Layout>

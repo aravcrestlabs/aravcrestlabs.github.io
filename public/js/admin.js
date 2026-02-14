@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ADMIN_SECRET_KEY = 'adminSecret';
     // Use the global BASE_PATH injected by the layout, or fallback to root if undefined
     const BASE_PATH = window.BASE_PATH || '/';
-    const API_URL = window.SERVER_URL || 'https://uigmdykavqllplgdxtxs.supabase.co/functions/v1/licensing';
+    const API_URL = window.GEMCREST_CONFIG?.serverUrl || 'https://uigmdykavqllplgdxtxs.supabase.co/functions/v1/licensing';
 
     // Get admin secret from localStorage
     const secret = localStorage.getItem(ADMIN_SECRET_KEY);
@@ -54,25 +54,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * API ENDPOINTS (Based on Supabase Function index.ts):
-     * - /get-licenses (POST with x-admin-secret)
-     * - /create-manual (POST with x-admin-secret)
+     * - /licenses (POST with x-admin-secret)
+     * - /create-license (POST with x-admin-secret)
      * - /revoke-license (POST with x-admin-secret)
-     * - /deactivate (POST with code + machineId) -> Used for Reset
+     * - /reset-machine (POST with code) -> Admin Reset
      */
     async function fetchLicenses() {
         try {
             renderLoading();
             // Note: index.ts expects the last part of url path to be the action name
-            console.log('DEBUG: Fetching licenses from:', `${API_URL}/get-licenses`);
+            console.log('DEBUG: Fetching licenses from:', `${API_URL}/licenses`);
             console.log('DEBUG: Using headers:', JSON.stringify(headers));
-            const res = await fetch(`${API_URL}/get-licenses`, {
+            const res = await fetch(`${API_URL}/licenses`, {
                 method: 'POST',
                 headers
             });
 
             console.log('DEBUG: Response status:', res.status);
             if (res.status === 401) {
-                console.log('DEBUG: Got 401, logging out...');
+                alert('Invalid Admin Secret Key. Please login again.');
                 handleLogout();
                 return;
             }
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = `JEWELRY-${randomHex()}-${randomHex()}`;
 
         try {
-            const res = await fetch(`${API_URL}/create-manual`, {
+            const res = await fetch(`${API_URL}/create-license`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ code, name, email })
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!confirm('Unlink Machine ID? This forces deactivation.')) return;
         try {
-            const res = await fetch(`${API_URL}/deactivate`, {
+            const res = await fetch(`${API_URL}/reset-machine`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ code, machineId: currentMachineId })
