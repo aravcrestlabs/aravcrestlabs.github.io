@@ -6,7 +6,12 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(EleventyEjsPlugin);
 
     // Copy Public Assets
-    eleventyConfig.addPassthroughCopy({ "public": "." });
+    // Copy Public Assets - Explicit Mappings
+    eleventyConfig.addPassthroughCopy({ "public/css": "css" });
+    eleventyConfig.addPassthroughCopy({ "public/js": "js" });
+    eleventyConfig.addPassthroughCopy({ "public/admin": "admin" });
+    eleventyConfig.addPassthroughCopy({ "public/favicon.svg": "favicon.svg" });
+    eleventyConfig.addPassthroughCopy({ "public/.nojekyll": ".nojekyll" });
 
     return {
         dir: {
