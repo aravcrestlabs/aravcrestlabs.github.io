@@ -35,6 +35,10 @@
     --shadow-hard: 5px 5px 0px 0px var(--border-color);
     --shadow-hover: 2px 2px 0px 0px var(--border-color);
     --radius-none: 0px;
+    --radius-pill: 999px;
+    --radius-lg: 1.25rem;
+    --radius-md: 0.75rem;
+    --radius-sm: 0.5rem;
 
     /* Spacing */
     --space-2: 0.5rem;
@@ -183,6 +187,7 @@ p {
     font-size: 0.8rem;
     margin-bottom: var(--space-4);
     background: var(--accent-color);
+    border-radius: var(--radius-pill);
 }
 
 /* ----------------------------------------
@@ -218,6 +223,7 @@ p {
     padding: 0.25rem 0.5rem;
     background: var(--text-color);
     color: var(--bg-color);
+    border-radius: var(--radius-md);
 }
 
 .navbar-nav {
@@ -245,6 +251,8 @@ p {
     font-weight: 700;
     text-transform: uppercase;
     transition: all 0.1s;
+    border-radius: var(--radius-pill);
+    border: var(--border-thick);
 }
 
 .navbar-cta:hover {
@@ -274,6 +282,7 @@ p {
     color: var(--text-color);
     box-shadow: var(--shadow-hard);
     transition: all 0.1s;
+    border-radius: var(--radius-pill);
 }
 
 .btn:hover {
@@ -329,6 +338,7 @@ p {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
+    border-radius: var(--radius-lg);
 }
 
 .hero-text h1 {
@@ -345,6 +355,7 @@ p {
     box-shadow: var(--shadow-hard);
     transition: all 0.1s;
     height: 100%;
+    border-radius: var(--radius-lg);
 }
 
 .feature-card:hover {
@@ -363,6 +374,7 @@ p {
     align-items: center;
     justify-content: center;
     background: var(--accent-color);
+    border-radius: 50%;
 }
 
 /* Pricing Card (Header Split Layout) */
@@ -375,6 +387,7 @@ p {
     margin: 0 auto;
     /* Block layout for Form to be full width */
     display: block;
+    border-radius: var(--radius-lg);
 }
 
 .pricing-header-grid {
@@ -407,6 +420,7 @@ p {
     border: var(--border-thick);
     display: inline-block;
     margin-bottom: var(--space-4);
+    border-radius: var(--radius-pill);
 }
 
 .pricing-plan {
@@ -501,6 +515,7 @@ p {
     font-size: 1rem;
     outline: none;
     transition: all 0.1s;
+    border-radius: var(--radius-md);
 }
 
 .form-group input:focus {
@@ -731,4 +746,53 @@ p {
         padding-bottom: var(--space-6);
         margin-bottom: var(--space-6);
     }
+}
+
+/* ----------------------------------------
+   Beta Badge & Notice
+   ---------------------------------------- */
+.beta-badge {
+    display: inline-block;
+    background: var(--accent-color);
+    color: var(--text-color);
+    padding: 0.2rem 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    border: 2px solid var(--text-color);
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.05em;
+    animation: beta-pulse 2s ease-in-out infinite;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+@keyframes beta-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 12px 4px rgba(204, 255, 0, 0.3);
+    }
+}
+
+.beta-notice {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
 }
