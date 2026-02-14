@@ -166,8 +166,24 @@
                     </div>
                     <div class="form-group">
                         <label for="customer-email">Email Address *</label>
-                        <input type="email" id="customer-email" name="customerEmail" required
-                            placeholder="Email Address">
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="email" id="customer-email" name="customerEmail" required
+                                placeholder="Email Address" style="flex: 1;">
+                            <button type="button" id="send-otp-btn" class="btn btn-secondary"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Send OTP</button>
+                        </div>
+                    </div>
+                    <div class="form-group hidden" id="otp-group">
+                        <label for="email-otp">Enter OTP *</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="email-otp" placeholder="6-digit code"
+                                style="flex: 1; letter-spacing: 2px;">
+                            <button type="button" id="verify-otp-btn" class="btn btn-primary"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Verify</button>
+                        </div>
+                    </div>
+                    <div id="otp-message" class="hidden"
+                        style="font-size: 0.8rem; margin-bottom: 1rem; font-weight: bold; padding: 0.5rem; border-radius: 4px;">
                     </div>
                     <div class="form-group">
                         <label for="customerAge">Age *</label>

@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             renderLoading();
             // Note: index.ts expects the last part of url path to be the action name
-            console.log('DEBUG: Fetching licenses from:', `${API_URL}/get-licenses`);
+            console.log('DEBUG: Fetching licenses from:', `${API_URL}/licenses`);
             console.log('DEBUG: Using headers:', JSON.stringify(headers));
-            const res = await fetch(`${API_URL}/get-licenses`, {
+            const res = await fetch(`${API_URL}/licenses`, {
                 method: 'POST',
                 headers
             });
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = `JEWELRY-${randomHex()}-${randomHex()}`;
 
         try {
-            const res = await fetch(`${API_URL}/create-manual`, {
+            const res = await fetch(`${API_URL}/create-license`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ code, name, email })
@@ -135,10 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!confirm('Unlink Machine ID? This forces deactivation.')) return;
         try {
-            const res = await fetch(`${API_URL}/deactivate`, {
+            const res = await fetch(`${API_URL}/reset-machine`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ code, machineId: currentMachineId })
+                body: JSON.stringify({ code })
             });
 
             if (!res.ok) throw new Error('Failed to deactivate');
@@ -280,6 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             if (data.price) {
                 settingPriceInput.value = data.price;
+                // Also update any other places if needed, though mostly it's just this input.
+                console.log('DEBUG: Settings loaded, price =', data.price);
             }
         } catch (err) {
             console.error('Failed to fetch settings', err);
@@ -303,6 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 settingsMsg.textContent = 'Saved!';
                 settingsMsg.style.color = 'green';
                 setTimeout(() => settingsMsg.textContent = '', 2000);
+
+                // Refresh settings to ensure UI matches server state
+                fetchSettings();
             } else {
                 throw new Error('Update failed');
             }

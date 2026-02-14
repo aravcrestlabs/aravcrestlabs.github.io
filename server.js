@@ -26,8 +26,7 @@ app.get('/js/checkout.js', (req, res) => {
         // Inject Envs
         const result = data
             .replace('PLACEHOLDER_SERVER_URL', process.env.SERVER_URL || '')
-            .replace('PLACEHOLDER_RAZORPAY_KEY', process.env.RAZORPAY_KEY || '')
-            .replace("'PLACEHOLDER_AMOUNT'", process.env.AMOUNT || '500000'); // Remove quotes to make it a number
+            .replace('PLACEHOLDER_RAZORPAY_KEY', process.env.RAZORPAY_KEY || '');
 
         res.type('application/javascript').send(result);
     });

@@ -7,11 +7,13 @@
 const CONFIG = {
     serverUrl: 'PLACEHOLDER_SERVER_URL',
     razorpayKey: 'PLACEHOLDER_RAZORPAY_KEY', // Replaced by server/build
-    amount: 'PLACEHOLDER_AMOUNT', // Replaced by server/build
+    amount: 500000, // Default fallback, updated by fetchPrice
     currency: 'INR',
     productName: 'GemCrest',
     productDescription: 'Lifetime License - Single Device'
 };
+
+let isEmailVerified = false;
 
 // ----------------------------------------
 // Initialize Checkout Form
@@ -26,6 +28,13 @@ function initCheckout() {
         e.preventDefault();
         await handlePurchase();
     });
+
+    // OTP Listeners
+    const sendOtpBtn = document.getElementById('send-otp-btn');
+    const verifyOtpBtn = document.getElementById('verify-otp-btn');
+
+    if (sendOtpBtn) sendOtpBtn.addEventListener('click', handleSendOTP);
+    if (verifyOtpBtn) verifyOtpBtn.addEventListener('click', handleVerifyOTP);
 
     // Fetch dynamic price
     fetchPrice();
@@ -55,6 +64,100 @@ async function fetchPrice() {
 }
 
 // ----------------------------------------
+// OTP Flow
+// ----------------------------------------
+async function handleSendOTP() {
+    const emailInput = document.getElementById('customer-email');
+    const nameInput = document.getElementById('customer-name');
+    const sendBtn = document.getElementById('send-otp-btn');
+    const msgEl = document.getElementById('otp-message');
+
+    const email = emailInput?.value?.trim();
+    const name = nameInput?.value?.trim();
+
+    if (!isValidEmail(email)) {
+        showOTPMessage('Please enter a valid email first.', 'red');
+        return;
+    }
+
+    setButtonLoading(sendBtn, true);
+
+    try {
+        const res = await fetch(`${CONFIG.serverUrl}/send-purchase-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, name })
+        });
+
+        if (res.ok) {
+            document.getElementById('otp-group').classList.remove('hidden');
+            showOTPMessage('OTP sent! Check your inbox.', 'green');
+            sendBtn.textContent = 'Resend OTP';
+            emailInput.disabled = true; // Lock email to prevent change after OTP
+        } else {
+            throw new Error('Failed to send OTP');
+        }
+    } catch (err) {
+        console.error(err);
+        showOTPMessage('Failed to send email. Try again.', 'red');
+    } finally {
+        setButtonLoading(sendBtn, false);
+    }
+}
+
+async function handleVerifyOTP() {
+    const emailInput = document.getElementById('customer-email');
+    const otpInput = document.getElementById('email-otp');
+    const verifyBtn = document.getElementById('verify-otp-btn');
+    const otpGroup = document.getElementById('otp-group');
+    const sendBtn = document.getElementById('send-otp-btn');
+
+    const email = emailInput?.value?.trim();
+    const otp = otpInput?.value?.trim();
+
+    if (!otp) {
+        showOTPMessage('Please enter OTP.', 'red');
+        return;
+    }
+
+    setButtonLoading(verifyBtn, true);
+
+    try {
+        const res = await fetch(`${CONFIG.serverUrl}/verify-purchase-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, otp })
+        });
+
+        if (res.ok) {
+            isEmailVerified = true;
+            showOTPMessage('Email Verified! You can now proceed.', 'green');
+            otpGroup.classList.add('hidden');
+            sendBtn.classList.add('hidden');
+            emailInput.style.borderColor = 'green';
+            emailInput.style.background = '#e6ffe6';
+        } else {
+            throw new Error('Invalid OTP');
+        }
+    } catch (err) {
+        console.error(err);
+        showOTPMessage('Invalid or Expired OTP.', 'red');
+    } finally {
+        setButtonLoading(verifyBtn, false);
+    }
+}
+
+function showOTPMessage(msg, color) {
+    const el = document.getElementById('otp-message');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.color = color === 'green' ? '#155724' : '#721c24';
+    el.style.background = color === 'green' ? '#d4edda' : '#f8d7da';
+    el.style.border = `1px solid ${color === 'green' ? '#c3e6cb' : '#f5c6cb'}`;
+    el.classList.remove('hidden');
+}
+
+// ----------------------------------------
 // Handle Purchase Flow
 // ----------------------------------------
 async function handlePurchase() {
@@ -73,6 +176,11 @@ async function handlePurchase() {
 
     if (!isValidEmail(email)) {
         showError('Please enter a valid email address.');
+        return;
+    }
+
+    if (!isEmailVerified) {
+        showError('Please verify your email address via OTP first.');
         return;
     }
 
