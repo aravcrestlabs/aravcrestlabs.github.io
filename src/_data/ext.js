@@ -1,1 +1,1 @@
-module.exports = '/index.html';
+module.exports = '/';
