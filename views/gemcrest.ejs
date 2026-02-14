@@ -11,7 +11,7 @@
                     Professional, powerful, and refreshingly simple.
                 </p>
                 <div class="hero-buttons" style="justify-content:center;">
-                    <a href="#pricing" class="btn btn-primary" id="hero-price-btn">Purchase for ₹5,000</a>
+                    <a href="#pricing" class="btn btn-primary" id="hero-price-btn">Purchase for ...</a>
                     <a href="<%= path %>docs/index<%= ext %>" class="btn btn-secondary">Read Documentation</a>
                 </div>
             </div>
@@ -138,9 +138,9 @@
                         <div class="pricing-badge">Limited Time Offer</div>
                         <h3 class="pricing-plan">GemCrest Lifetime License</h3>
                         <div class="pricing-price-box">
-                            <div class="pricing-original">₹15,000</div>
+                            <div class="pricing-original">...</div>
                             <div class="pricing-amount">
-                                <span class="currency">₹</span><span id="price-value">5,000</span>
+                                <span class="currency">₹</span><span id="price-value">...</span>
                             </div>
                         </div>
                         <p class="pricing-note">One-time payment • Forever yours</p>
@@ -166,11 +166,12 @@
                     </div>
                     <div class="form-group">
                         <label for="customer-email">Email Address *</label>
-                        <div style="display: flex; gap: 0.5rem;">
+                        <div style="position: relative;">
                             <input type="email" id="customer-email" name="customerEmail" required
-                                placeholder="Email Address" style="flex: 1;">
-                            <button type="button" id="send-otp-btn" class="btn btn-secondary"
-                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Send OTP</button>
+                                placeholder="Email Address"
+                                style="width: 100%; padding-right: 90px; height: 50px; display: block;">
+                            <button type="button" id="send-otp-btn" class="btn btn-primary"
+                                style="position: absolute; right: 5px; top: 5px; bottom: 5px; padding: 0 1rem; font-size: 0.75rem; border-radius: 4px; z-index: 100; height: 40px; background-color: #000000; color: #ffffff; display: flex; align-items: center; justify-content: center;">Verify</button>
                         </div>
                     </div>
                     <div class="form-group hidden" id="otp-group">

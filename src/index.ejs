@@ -16,7 +16,8 @@ title: Home
                     for accuracy, speed, and peace of mind.
                 </p>
                 <div class="hero-buttons">
-                    <a href="<%= path %>gemcrest<%= ext %>#pricing" class="btn btn-primary">Start for ₹5,000</a>
+                    <a href="<%= path %>gemcrest<%= ext %>#pricing" class="btn btn-primary">Start for <span
+                            class="dynamic-price">...</span></a>
                     <a href="<%= path %>gemcrest<%= ext %>" class="btn btn-secondary">Explore Features</a>
                 </div>
             </div>
@@ -36,6 +37,9 @@ title: Home
             </div>
         </div>
     </section>
+
+    <!-- Load Price Fetcher -->
+    <script src="<%= path %>js/checkout.js"></script>
 
     <!-- Features Section -->
     <section class="section reveal">

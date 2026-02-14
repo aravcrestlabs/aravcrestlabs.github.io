@@ -23,12 +23,8 @@ app.get('/js/checkout.js', (req, res) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) return res.status(404).send('Script not found');
 
-        // Inject Envs
-        const result = data
-            .replace('PLACEHOLDER_SERVER_URL', process.env.SERVER_URL || '')
-            .replace('PLACEHOLDER_RAZORPAY_KEY', process.env.RAZORPAY_KEY || '');
-
-        res.type('application/javascript').send(result);
+        // No injection needed anymore - values are hardcoded in checkout.js
+        res.type('application/javascript').send(data);
     });
 });
 

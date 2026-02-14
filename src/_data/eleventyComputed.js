@@ -5,12 +5,8 @@ module.exports = {
         // e.g. /docs/ -> ../
         // e.g. / -> (empty)
 
-        const url = data.page.url || '/';
-
-        // Count the depth by counting slashes (minus leading and trailing)
-        // /legal/terms/ has 2 segments = depth 2 = ../../
-        // /docs/ has 1 segment = depth 1 = ../
-        // / has 0 segments = depth 0 = (empty)
+        const url = data.page.url;
+        if (!url || url === '/') return '';
 
         const segments = url.split('/').filter(s => s.length > 0);
         const depth = segments.length;
