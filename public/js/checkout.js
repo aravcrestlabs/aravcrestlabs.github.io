@@ -72,7 +72,7 @@ async function fetchPrice() {
             const originalPriceEls = document.querySelectorAll('.pricing-original');
             originalPriceEls.forEach(el => {
                 // Example: Show 20% more as original price
-                const original = Math.round((CONFIG.amount / 100) * 1.25).toLocaleString('en-IN');
+                const original = Math.round((CONFIG.amount / 100) * 1.75).toLocaleString('en-IN');
                 el.textContent = `₹${original}`;
             });
         }
