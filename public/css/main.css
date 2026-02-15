@@ -13,6 +13,8 @@
     --accent-text: #000000;
     --secondary-bg: #f2f2f2;
     --error-color: #ff0000;
+    --rose-gold: #b76e79;
+    --warm-gray: #888888;
 
     /* Typography */
     --font-display: 'Space Grotesk', sans-serif;
@@ -172,6 +174,16 @@ p {
 .section {
     padding: var(--space-24) 0;
     border-bottom: var(--border-thick);
+}
+
+.section-warm {
+    background: var(--secondary-bg);
+}
+
+.section-description {
+    max-width: 60ch;
+    font-size: 1.1rem;
+    opacity: 0.85;
 }
 
 .section-header {
@@ -345,6 +357,55 @@ p {
     line-height: 0.9;
 }
 
+.hero-buttons {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+}
+
+.hero-visual {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .hero-visual {
+        grid-template-columns: 1fr;
+    }
+}
+
+.floating-card {
+    border: var(--border-thick);
+    padding: var(--space-4);
+    background: var(--bg-color);
+    box-shadow: var(--shadow-hard);
+    text-align: center;
+    border-radius: var(--radius-md);
+    transition: transform 0.2s;
+}
+
+.floating-card:hover {
+    transform: translateY(-4px);
+}
+
+.card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: var(--space-2);
+}
+
+.card-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
 /* ----------------------------------------
    Cards (Feature & Pricing)
    ---------------------------------------- */
@@ -453,6 +514,12 @@ p {
     vertical-align: top;
 }
 
+.pricing-note {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: var(--space-2);
+}
+
 .pricing-features {
     list-style: none;
     margin: 0;
@@ -545,8 +612,9 @@ p {
     background: var(--text-color);
     color: var(--bg-color);
     display: inline-block;
-    padding: 0.25rem;
+    padding: 0.25rem 0.5rem;
     border: var(--border-thick);
+    border-radius: var(--radius-md);
 }
 
 .footer h4 {
