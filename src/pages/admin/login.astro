@@ -34,23 +34,67 @@ import Layout from '../../layouts/Layout.astro';
 
     <script is:inline>
         document.addEventListener('DOMContentLoaded', () => {
+            const API_URL = window.GEMCREST_CONFIG?.serverUrl || 'https://uigmdykavqllplgdxtxs.supabase.co/functions/v1/licensing';
+
             // Check if already logged in
             if (localStorage.getItem('adminSecret')) {
                 window.location.href = '/admin/dashboard';
+                return;
             }
 
             const form = document.getElementById('login-form');
             const input = document.getElementById('admin-secret');
+            const errorEl = document.getElementById('login-error');
+            const submitBtn = form.querySelector('button[type="submit"]');
 
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const secret = input.value.trim();
+                errorEl.classList.add('hidden');
 
-                if (secret.length > 0) {
+                if (secret.length === 0) {
+                    errorEl.textContent = 'Please enter a secret key';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
+
+                // Disable UI while validating
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Verifying...';
+                input.disabled = true;
+
+                try {
+                    const res = await fetch(`${API_URL}/licenses`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-admin-secret': secret
+                        }
+                    });
+
+                    if (!res.ok) {
+                        if (res.status === 401) {
+                            throw new Error('Invalid Admin Secret');
+                        }
+                        throw new Error('Server error (' + res.status + ')');
+                    }
+
+                    const data = await res.json();
+                    if (!data || !data.licenses) {
+                        throw new Error('Invalid server response');
+                    }
+
+                    // Secret is valid — store and redirect
                     localStorage.setItem('adminSecret', secret);
                     window.location.href = '/admin/dashboard';
-                } else {
-                    document.getElementById('login-error').classList.remove('hidden');
+                } catch (err) {
+                    console.error('Login failed:', err);
+                    errorEl.textContent = err.message || 'Login failed';
+                    errorEl.classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Initialize Session';
+                    input.disabled = false;
+                    input.focus();
                 }
             });
         });
